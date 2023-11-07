@@ -5,13 +5,12 @@ import argparse
 import imutils
 import cv2
 
-ANSWER_KEY = {0: 1, 1: 4, 2: 0, 3: 3, 4: 1}
-
 def parse_arguments() -> dict:
     '''Parse CMD arguments'''
     
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", required=True, help="path to the input image")
+    ap.add_argument("-t", "--template", required=True, help="path to the tamplate image with the answers")
     
     return vars(ap.parse_args())
 
@@ -79,9 +78,8 @@ def find_question_contours(thresh):
 
     return questionCnts
 
-def analyze_answers(questionCnts, thresh, paper):
+def analyze_answers(questionCnts, thresh, paper, gab):
     correct = 0
-    gab = {}
 
     # Each question has 5 possible answers, to loop over the question in batches of 5
     for (q, i) in enumerate(np.arange(0, len(questionCnts), 5)):
@@ -104,8 +102,7 @@ def analyze_answers(questionCnts, thresh, paper):
 
         # Initialize the contour color and the index of the *correct* answer
         color = (0, 0, 255)
-        k = ANSWER_KEY[q]
-        gab[q] = bubbled[1]
+        k = gab[q]
 
         # Check to see if the bubbled answer is correct
         if k == bubbled[1]:
@@ -114,7 +111,26 @@ def analyze_answers(questionCnts, thresh, paper):
 
         cv2.drawContours(paper, [cnts[k]], -1, color, 3)
 
-    return correct, gab
+    return correct
+
+def get_answers_tamplate(answersCnts, thresh):
+    gab = {}
+
+    for (q, i) in enumerate(np.arange(0, len(answersCnts), 5)):
+        cnts = contours.sort_contours(answersCnts[i:i + 5])[0]
+        bubbled = None
+
+        for (j, _) in enumerate(cnts):
+            mask = np.zeros(thresh.shape, dtype="uint8")
+            mask = cv2.bitwise_and(thresh, thresh, mask=mask)
+            total = cv2.countNonZero(mask)
+
+            if bubbled is None or total > bubbled[0]:
+                bubbled = (total, j)
+
+        gab[q] = bubbled[1]
+    
+    return gab
 
 def display_results(paper, correct):
     score = (correct / 5.0) * 100
@@ -134,11 +150,20 @@ def wait_user_close():
 
 def main():
     args = parse_arguments()
+
+    # Get the tamplate answers
+    image, gray, edged = load_and_preprocess_image(args["template"])
+    docCnt = find_document_contour(edged)
+    paper, thresh = preprocess_paper_image(image, gray, docCnt)
+    templateCnts = find_question_contours(thresh)
+    gab = get_answers_tamplate(templateCnts, thresh)
+
+    # Get test correction
     image, gray, edged = load_and_preprocess_image(args["image"])
     docCnt = find_document_contour(edged)
     paper, thresh = preprocess_paper_image(image, gray, docCnt)
     questionCnts = find_question_contours(thresh)
-    correct, _ = analyze_answers(questionCnts, thresh, paper)
+    correct = analyze_answers(questionCnts, thresh, paper, gab)
     display_results(paper, correct)
 
 if __name__ == '__main__':
