@@ -1,0 +1,16 @@
+[project]
+name = "snapcorrect"
+version = "0.1.0"
+description = "Correct tests by taking photos"
+dependencies = ["flask", "pytest", "coverage", "autopep8", "imutils", "numpy", "scipy", "opencv-python"]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["flaskr"]
