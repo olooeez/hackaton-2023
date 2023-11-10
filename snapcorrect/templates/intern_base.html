@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Snapcorrect: {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <section class="min-h-screen flex flex-col justify-between">
+        {% include "components/navbar.html" %}
+        {% block content %}{% endblock %}
+        {% include "components/footer.html" %}
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
+
+</html>
