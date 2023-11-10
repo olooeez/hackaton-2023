@@ -13,7 +13,7 @@ CREATE TABLE test (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     professor_id INTEGER REFERENCES professor(id),
     title TEXT NOT NULL,
-    date DATE,
+    date DATE DEFAULT CURRENT_DATE,
     template BLOB
 );
 

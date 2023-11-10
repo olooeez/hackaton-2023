@@ -29,6 +29,13 @@ def init_db():
         db.executescript(f.read().decode("utf8"))
 
 
+def fake_data():
+    db = get_db()
+
+    with current_app.open_resource("db/fake.sql") as f:
+        db.executescript(f.read().decode("utf8"))
+
+
 @click.command("init-db")
 def init_db_command():
     """Clear the existing data and create new tables."""
@@ -36,6 +43,14 @@ def init_db_command():
     click.echo("Initialized the database.")
 
 
+@click.command("fake-data")
+def fake_data_command():
+    """Add fake data to the existing database"""
+    fake_data()
+    click.echo("Added fake data to the database.")
+
+
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(fake_data_command)
