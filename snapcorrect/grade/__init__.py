@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from snapcorrect.auth import login_required
 from snapcorrect.db import get_db
 
-bp = Blueprint("grade", __name__)
+bp = Blueprint("grade", __name__, url_prefix="/grade")
 
 
 @bp.route("/<int:id>/index")
@@ -28,7 +28,8 @@ def create():
 
         if error is None:
             try:
-                cursor = db.execute("INSERT INTO grade (professor_id, title) VALUES (?, ?)", (session.get("professor_id"), name,))
+                cursor = db.execute(
+                    "INSERT INTO grade (professor_id, title) VALUES (?, ?)", (session.get("professor_id"), name,))
                 db.commit()
                 grade_id = cursor.lastrowid
             except db.IntegrityError:
