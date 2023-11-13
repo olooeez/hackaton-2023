@@ -8,7 +8,12 @@ bp = Blueprint("grade", __name__, url_prefix="/grade")
 @bp.route("/<int:id>/index")
 @login_required
 def index(id):
-    return render_template("grade/index.html")
+    db = get_db()
+
+    grade = db.execute("SELECT * FROM grade WHERE professor_id = ? AND id = ?", (session.get("professor_id"), id,)).fetchone()
+    students = db.execute("SELECT * FROM student WHERE professor_id = ? AND grade_id = ?", (session.get("professor_id"), id)).fetchall()
+
+    return render_template("grade/index.html", grade=grade, students=students)
 
 
 @bp.route("/create", methods=("GET", "POST"))

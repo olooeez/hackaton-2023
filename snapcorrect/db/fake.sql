@@ -14,10 +14,10 @@ INSERT INTO grade (title, professor_id) VALUES
     ('Class B', 1),
     ('Class C', 1);
 
-INSERT INTO student (username, professor_id, class_id) VALUES
+INSERT INTO student (username, professor_id, grade_id) VALUES
     ('Renan', 1, 1),
     ('Lucas', 1, 1),
     ('Raul', 1, 1),
-    ('Maria', 1, 2),
-    ('Pedro', 1, 3),
+    ('Maria', 1, 1),
+    ('Pedro', 1, 1),
     ('Ana', 1, 1);

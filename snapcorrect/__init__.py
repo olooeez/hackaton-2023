@@ -28,11 +28,13 @@ def create_app(test_config=None):
     from . import professor
     from . import grade
     from . import test
+    from . import student
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(professor.bp)
     app.register_blueprint(grade.bp)
     app.register_blueprint(test.bp)
+    app.register_blueprint(student.bp)
 
     app.add_url_rule("/", endpoint="index")
 
