@@ -1,0 +1,62 @@
+{% extends "intern_base.html" %}
+
+{% block title %}
+Início
+{% endblock %}
+
+{% block content %}
+<div class="p-4 m-9">
+    <div class="flex justify-between mb-10">
+        <h1 class="text-2xl font-bold underline">Suas provas</h1>
+        <a href="{{ url_for('test.create') }}"
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2">
+            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 1v16M1 9h16" />
+            </svg>
+            Criar nova prova
+        </a>
+    </div>
+    <div class="overflow-x-auto">
+        <ul class="flex space-x-4">
+            {% for test in tests %}
+            <a href="{{ url_for('test.index', id=test['id']) }}"
+                class="block max-w-sm p-6 border-2 rounded-lg hover:bg-gray-200">
+                <li>
+                    <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{ test["title"] }}</h5>
+                    <span class="font-normal text-gray-500 text-sm">{{ test['date'] }}</span>
+                </li>
+            </a>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="p-4 m-9">
+    <div class="flex justify-between mb-10">
+        <h1 class="text-2xl font-bold underline">Suas turmas</h1>
+        <a href="{{ url_for('grade.create') }}"
+            class="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2">
+            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 1v16M1 9h16" />
+            </svg>
+            Criar nova turma
+        </a>
+    </div>
+    <div class="overflow-x-auto">
+        <ul class="flex space-x-4">
+            {% for grade in grades %}
+            <a href="{{ url_for('grade.index', id=grade['id']) }}"
+                class="block max-w-sm p-6 border-2 rounded-lg hover:bg-gray-200">
+                <li>
+                    <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{ grade["title"] }}</h5>
+                    <span class="font-normal text-gray-500 text-sm">{{ grade['date'] }}</span>
+                </li>
+            </a>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

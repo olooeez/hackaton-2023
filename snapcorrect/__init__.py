@@ -7,7 +7,7 @@ def create_app(test_config=None):
 
     app.config.from_mapping(
         SECRET_KEY="dev",
-        DATABASE=os.path.join(app.instance_path, "flaskr.sqlite")
+        DATABASE=os.path.join(app.instance_path, "snapcorrect.sqlite")
     )
 
     if test_config is None:
@@ -26,9 +26,13 @@ def create_app(test_config=None):
 
     from . import auth
     from . import professor
+    from . import grade
+    from . import test
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(professor.bp)
+    app.register_blueprint(grade.bp)
+    app.register_blueprint(test.bp)
 
     app.add_url_rule("/", endpoint="index")
 
