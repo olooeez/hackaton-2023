@@ -29,7 +29,7 @@ CREATE TABLE student (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     professor_id INTEGER REFERENCES professor(id),
-    class_id INTEGER REFERENCES grade(id)
+    grade_id INTEGER REFERENCES grade(id)
 );
 
 CREATE TABLE student_correction (
