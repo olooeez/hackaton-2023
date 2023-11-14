@@ -80,6 +80,14 @@ Turma {{ grade['title'] }}
             Criar prova
         </a>
     </div>
+    <h1 class="text-3xl font-bold mb-6 mt-6 text-gray-800 underline">Provas</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {% for test in tests %}
+        <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4">
+            <a href="{{ url_for('test.index', id=test.test_id) }}" class="text-xl font-semibold">{{ test.test_title }}</a>
+        </div>
+        {% endfor %}
+    </div>    
 </div>
 
 <div id="delete-student" tabindex="-1"

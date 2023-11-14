@@ -21,7 +21,19 @@ def index(id):
 
     students = db.execute(query, (id,)).fetchall()
 
-    return render_template("grade/index.html", grade=grade, students=students)
+    query = """
+        SELECT
+            id AS test_id,
+            title AS test_title
+        FROM
+            test
+        WHERE
+            grade_id = ?
+    """
+
+    tests = db.execute(query, (id,)).fetchall()
+
+    return render_template("grade/index.html", grade=grade, students=students, tests=tests)
 
 
 @bp.route("/create", methods=("GET", "POST"))
