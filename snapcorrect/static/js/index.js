@@ -28,7 +28,24 @@ document.addEventListener("DOMContentLoaded", function () {
       studentNameInput.value = studentName;
       studentIdInput.value = studentId;
 
-      editForm.setAttribute("action", `/student/edit/${studentId}`)
+      editForm.setAttribute("action", `/student/edit/${studentId}`);
     });
   });
 });
+
+function openPopup(popupId, imgSrc) {
+  var popup = document.getElementById(popupId);
+  var image = popup.querySelector("img");
+
+  popup.classList.remove("hidden");
+
+  console.log(imgSrc);
+
+  image.src = `{{ url_for('static', filename=${imgSrc}) }}`;
+
+  console.log(x);
+}
+
+function closePopup() {
+  document.getElementById("john-doe-photo").classList.add("hidden");
+}
