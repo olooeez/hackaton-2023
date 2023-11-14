@@ -1,5 +1,11 @@
 # hackaton-2023
 
+## Vídeo
+
+O vídeo está nesse link. [Clique aqui.](https://streamable.com/n0vcz4)
+
+**OBS:** O vídeo expira em 2 dias, vou atualizar o link.
+
 ## 1. Introdução
 
 Este documento descreve uma solução desenvolvida em Python para correção automática de testes e simulados de múltipla escolha. A própria utiliza solução de visão computacional e aprendizado de máquina para realizar a leitura do gabarito, analisar os cartões resposta dos alunos, comparar as respostas e gerar relatórios individuais. Além disso, inclui um sistema de gerenciamento de dados para armazenar os resultados de forma organizada.
