@@ -26,7 +26,7 @@ Turma {{ grade['title'] }}
                 {% for student in students %}
                 <tr class="bg-white border-b even:bg-gray-50 odd:bg-white">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ student["student_username"] }}
+                        <a class="text-blue-700 font-medium" href="{{ url_for('student.index', id=student['student_id']) }}">{{ student["student_username"] }}</a>
                     </th>
                     <td class="px-6 py-4">
                         {{ student["total_score"] }}
