@@ -24,6 +24,15 @@ Criar prova
             </div>
         </div>
         <div class="mb-5">
+            <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Turma:</label>
+            <select name="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option selected>Escolha uma turma</option>
+                {% for grade in grades %}
+                <option value="{{ grade['id'] }}">{{ grade['title'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-5">
             <label class="block mb-2 text-sm font-medium text-gray-900" for="template">Imagem do gabarito</label>
             <input
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
