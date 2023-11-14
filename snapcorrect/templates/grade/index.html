@@ -15,6 +15,9 @@ Turma {{ grade['title'] }}
                         Nome
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Nota
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Ação
                     </th>
                 </tr>
@@ -23,12 +26,14 @@ Turma {{ grade['title'] }}
                 {% for student in students %}
                 <tr class="bg-white border-b even:bg-gray-50 odd:bg-white">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ student["username"] }}
+                        {{ student["student_username"] }}
                     </th>
+                    <td class="px-6 py-4">
+                        {{ student["total_score"] }}
                     </td>
                     <td class="px-6 py-4">
                         <button type="button" data-modal-target="delete-student" data-modal-toggle="delete-student"
-                            data-user-id="{{ student['id'] }}"
+                            data-user-id="{{ student['student_id'] }}"
                             class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex items-center me-2 mb-2">
                             <svg class="w-6 h-5 me-2 -ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 18 20">
@@ -38,7 +43,7 @@ Turma {{ grade['title'] }}
                             Deletar
                         </button>
                         <button type="button" data-modal-target="edit-student" data-modal-toggle="edit-student"
-                            data-student-id="{{ student['id'] }}" data-student-name="{{ student['username'] }}"
+                            data-student-id="{{ student['student_id'] }}" data-student-name="{{ student['student_username'] }}"
                             class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 text-center inline-flex items-center me-2 mb-2">
                             <svg class="w-6 h-5 me-2 -ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 20 20">
@@ -47,6 +52,7 @@ Turma {{ grade['title'] }}
                             </svg>
                             Editar
                         </button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -171,7 +177,8 @@ Turma {{ grade['title'] }}
             <div class="p-4 md:p-5">
                 <form class="space-y-4" method="post">
                     <div>
-                        <label for="student_name" class="block mb-2 text-sm font-medium text-gray-900">Nome do aluno:</label>
+                        <label for="student_name" class="block mb-2 text-sm font-medium text-gray-900">Nome do
+                            aluno:</label>
                         <input type="text" name="student_name" id="student_name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             value="" required>

@@ -10,8 +10,16 @@ bp = Blueprint("grade", __name__, url_prefix="/grade")
 def index(id):
     db = get_db()
 
-    grade = db.execute("SELECT * FROM grade WHERE professor_id = ? AND id = ?", (session.get("professor_id"), id,)).fetchone()
-    students = db.execute("SELECT * FROM student WHERE professor_id = ? AND grade_id = ?", (session.get("professor_id"), id)).fetchall()
+    grade = db.execute("SELECT * FROM grade WHERE professor_id = ? AND id = ?",
+                       (session.get("professor_id"), id,)).fetchone()
+
+    query = """
+        SELECT g.id AS grade_id, g.title AS grade_title, s.id AS student_id, s.username AS student_username, COALESCE(SUM(sc.score), 0) AS total_score 
+        FROM student AS s JOIN grade AS g ON s.grade_id = g.id LEFT JOIN student_correction AS sc ON s.id = sc.student_id
+        WHERE s.grade_id = ? GROUP BY s.id, g.id
+    """
+
+    students = db.execute(query, (id,)).fetchall()
 
     return render_template("grade/index.html", grade=grade, students=students)
 
