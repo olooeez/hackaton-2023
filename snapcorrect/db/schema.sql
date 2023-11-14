@@ -16,7 +16,7 @@ CREATE TABLE test (
     grade_id INTEGER REFERENCES grade(id),
     title TEXT NOT NULL,
     date DATE DEFAULT CURRENT_DATE,
-    template BLOB
+    template TEXT
 );
 
 CREATE TABLE grade (
@@ -38,5 +38,5 @@ CREATE TABLE student_correction (
     test_id INTEGER REFERENCES test(id),
     student_id INTEGER REFERENCES student(id),
     score INTEGER,
-    corrected_test BLOB
+    corrected_test TEXT
 );
