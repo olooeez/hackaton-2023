@@ -1,8 +1,36 @@
 {% extends "intern_base.html" %}
 
 {% block title %}
-Criar prova
+Correção da prova
 {% endblock %}
 
 {% block content %}
+<div class="max-w-screen-lg mx-auto">
+    <div class="flex">
+        <div class="w-full mr-4 mt-20">
+            <div class="bg-white rounded-md p-8 shadow-md">
+                <h2 class="text-2xl font-semibold mb-6">{{ test.test_title }}</h2>
+                <form action="{{ url_for('test.correct', id=test.test_id) }}" method="post" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="student" class="block text-gray-600 text-sm font-medium mb-2">Escolha uma opção</label>
+                        <select id="student" name="student" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            {% for student in students %}
+                            {% if not student.has_taken_test %}
+                            <option value="{{ student.student_id }}">{{ student.student_name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900" for="template">Imagem do gabarito</label>
+                        <input type="file" id="test" name="test" aria-describedby="test" accept=".png, .jpg, .jpeg" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                        <p class="mt-1 text-sm text-gray-500" id="template">PNG ou JPG</p>
+                    </div>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Corrigir</button>
+                    <a href="{{ url_for('test.dashboard', id=test.test_id) }}" class="bg-yellow-500 text-white px-4 py-3 rounded-md hover:bg-yellow-600">Ver notas</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

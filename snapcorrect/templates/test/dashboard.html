@@ -1,0 +1,37 @@
+{% extends "intern_base.html" %}
+
+{% block title %}
+Correção da prova
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">Nome</th>
+                <th scope="col" class="px-6 py-3">Nota</th>
+                <th scope="col" class="px-6 py-3">Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr class="bg-white border-b even:bg-gray-50 odd:bg-white">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ student.username }}
+                </th>
+                <td class="px-6 py-4">{{ student.score }}</td>
+                <td class="px-6 py-4">
+                    <div class="max-w-full overflow-hidden">
+                        <a href="{{ url_for('static', filename=student.corrected_test) }}">
+                            <img src="{{ url_for('static', filename=student.corrected_test) }}" alt="Prova"
+                                class="w-12 h-12">
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
