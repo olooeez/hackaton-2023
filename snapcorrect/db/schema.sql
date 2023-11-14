@@ -13,6 +13,7 @@ CREATE TABLE professor (
 CREATE TABLE test (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     professor_id INTEGER REFERENCES professor(id),
+    grade_id INTEGER REFERENCES grade(id),
     title TEXT NOT NULL,
     date DATE DEFAULT CURRENT_DATE,
     template BLOB

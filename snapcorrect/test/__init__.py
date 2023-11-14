@@ -17,6 +17,7 @@ def create():
     if request.method == "POST":
         name = request.form.get("name")
         template = request.files.get("template")
+        grade = request.form.get("grade")
 
         db = get_db()
 
@@ -30,10 +31,13 @@ def create():
         if not name:
             error = "Nome da turma não pode estar vazio."
 
+        if not grade:
+            error = "Turma não foi especificada."
+
         if error is None:
             try:
-                cursor = db.execute("INSERT INTO test (professor_id, title, template) VALUES (?, ?, ?)", (session.get(
-                    "professor_id"), name, template.read(),))
+                cursor = db.execute("INSERT INTO test (professor_id, grade_id, title, template) VALUES (?, ?, ?, ?)", (session.get(
+                    "professor_id"), grade, name, template.read(),))
                 db.commit()
                 test_id = cursor.lastrowid
             except db.IntegrityError:
@@ -42,5 +46,11 @@ def create():
                 return redirect(url_for("test.index", id=test_id))
 
         flash(error)
+    
+    db = get_db()
 
-    return render_template("test/create.html")
+    error = None
+
+    grades = db.execute("SELECT id, title FROM grade").fetchall()
+
+    return render_template("test/create.html", grades=grades)
